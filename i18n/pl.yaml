@@ -1,0 +1,284 @@
+# Plik językowy polski
+# Navigation related
+nav:
+  menu: "Menu"
+  home: "Strona główna"
+  posts: "Blog"
+  projects: "Projekty"
+  tags: "Tagi"
+  categories: "Kategorie"
+  series: "Serie"
+  about: "O mnie"
+  contact: "Kontakt"
+  archive: "Archiwum"
+  archives: "Archiwum"
+  legacy: "Starocie"
+  search: "Szukaj"
+  breadcrumb: "Okruszki"
+  pagination: "Paginacja"
+  prev: "Poprzedni"
+  next: "Następny"
+  prev_page: "Poprzednia strona"
+  next_page: "Następna strona"
+  page_info: "Strona {{ .current }} z {{ .total }}"
+  total_pages: "Stron łącznie: {{ .count }}"
+  back_home: "Powrót do strony głównej"
+  post_navigation: "Nawigacja wpisów"
+
+# Theme related
+theme:
+  toggle: "Przełącz motyw"
+  light: "Jasny"
+  dark: "Ciemny"
+  system: "Systemowy"
+  auto: "Automatyczny"
+
+# Footer related
+footer:
+  copyright: "Prawa autorskie"
+  all_rights_reserved: "Wszystkie prawa zastrzeżone"
+  about_us: "O nas"
+  contact_us: "Kontakt z nami"
+  privacy_policy: "Polityka prywatności"
+  terms_of_service: "Regulamin"
+  rss_feed: "Kanał RSS"
+
+# Home related
+home:
+  recent_posts: "Najnowsze wpisy"
+  showing_posts: "Wyświetlanie najnowszych"
+  posts: "wpisów"
+  view_all_posts: "Zobacz wszystkie wpisy"
+
+# Post related
+post:
+  read_more: "Czytaj więcej"
+  published_on: "Opublikowano"
+  updated_on: "Zaktualizowano"
+  tags: "Tagi"
+  categories: "Kategorie"
+  series: "Serie"
+  share: "Udostępnij"
+  previous: "Poprzedni"
+  next: "Następny"
+  related_posts: "Powiązane wpisy"
+  reading_time: "Czas czytania"
+  no_posts: "Brak wpisów"
+  no_posts_desc: "Żadne artykuły nie zostały jeszcze opublikowane. Proszę sprawdzić później."
+  list_desc: "Oto wszystkie opublikowane artykuły, posortowane według daty w porządku malejącym."
+  total_posts: "Wpisów łącznie: {{ .count }}"
+  author: "Autor"
+  words: "słowa"
+  words_count: "Liczba słów"
+  no_previous: "Brak poprzedniego wpisu"
+  no_next: "Brak następnego wpisu"
+  no_previous_desc: "To jest najwcześniejszy wpis"
+  no_next_desc: "To jest najnowszy wpis"
+  view_more_posts: "Zobacz więcej wpisów"
+  reading_time_unit: "min"
+
+# Pagination related
+pagination:
+  previous: "Poprzednia"
+  next: "Następna"
+  page: "Strona"
+  of: "z"
+  pages: "stron"
+
+# Search related
+search:
+  placeholder: "Szukaj wpisów..."
+  clear: "Wyczyść"
+  close: "Zamknij"
+  loading: "Wyszukiwanie..."
+  empty_title: "Rozpocznij wyszukiwanie"
+  empty_description: "Wprowadź słowa kluczowe, aby wyszukać artykuły"
+  no_results_title: "Nie znaleziono wyników"
+  no_results_description: "Spróbuj użyć innych słów kluczowych"
+  results_count: "Znaleziono %d wyników"
+  match_score: "Trafność"
+  hint_navigate: "Nawiguj"
+  hint_select: "Wybierz"
+  hint_close: "Zamknij"
+  hint_shortcut: "Skrót"
+
+# Form related
+form:
+  name: "Imię"
+  email: "Email"
+  message: "Wiadomość"
+  subject: "Temat"
+  send: "Wyślij"
+  required: "Wymagane"
+
+# Time related
+time:
+  minute: "min"
+  minutes: "min"
+  hour: "godz"
+  hours: "godz"
+  day: "dzień"
+  days: "dni"
+  week: "tydzień"
+  weeks: "tygodnie"
+  month: "miesiąc"
+  months: "miesiące"
+  year: "rok"
+  years: "lata"
+  ago: "temu"
+  date_format: "02 stycznia 2006"
+  date_format_short: "02 sty"
+  month_format: "Styczeń 2006"
+
+# Archives related
+archives:
+  desc: "Przeglądaj wszystkie artykuły w porządku chronologicznym i odkryj to, co Cię interesuje."
+  posts_count: "wpisów"
+  no_posts: "Brak wpisów"
+  no_posts_desc: "Żadne wpisy nie zostały jeszcze opublikowane. Proszę sprawdzić później."
+  total_posts: "Wpisów łącznie: {{ .count }}"
+  timeline: "Widok osi czasu"
+
+# Taxonomy related
+taxonomy:
+  total_tags: "Tagów łącznie: {{ .count }}"
+  total_categories: "Kategorii łącznie: {{ .count }}"
+  total_terms: "Terminów łącznie: {{ .count }}"
+  tags_desc: "Przeglądaj wszystkie tagi, aby odkryć interesujące treści."
+  categories_desc: "Przeglądaj wszystkie kategorie, aby odkryć interesujące treści."
+  desc: "Przeglądaj wszystkie kategorie, aby odkryć interesujące treści."
+  no_terms: "Brak kategorii"
+  no_terms_desc: "Żadne kategorie nie zostały jeszcze utworzone. Proszę sprawdzić później."
+
+# Taxonomy term pages
+term:
+  tag_desc: 'Wszystkie wpisy pod tagiem "{{ .tag }}"'
+  category_desc: 'Wszystkie wpisy w kategorii "{{ .category }}"'
+  desc: 'Wszystkie wpisy pod "{{ .term }}"'
+  total_posts: "Wpisów łącznie: {{ .count }}"
+  date_range: "Posortowane według daty"
+  no_posts: "Brak wpisów"
+  no_posts_tag: "Brak wpisów pod tym tagiem."
+  no_posts_category: "Brak wpisów w tej kategorii."
+  no_posts_desc: "Brak wpisów w tej kategorii."
+
+# Common
+common:
+  loading: "Ładowanie..."
+  error: "Błąd"
+  success: "Sukces"
+  close: "Zamknij"
+  open: "Otwórz"
+  save: "Zapisz"
+  cancel: "Anuluj"
+  confirm: "Potwierdź"
+  delete: "Usuń"
+  edit: "Edytuj"
+  view: "Zobacz"
+  back: "Wstecz"
+  more: "Więcej"
+  language: "Język"
+  site_logo: "Logo strony"
+
+# Language switching
+language:
+  toggle: "Przełącz język"
+
+# License related
+license:
+  title: "Informacje o prawach autorskich"
+  author: "Autor"
+  link: "Link"
+  type: "Licencja"
+  cc_by_nc_sa_desc: "Ta praca jest licencjonowana na warunkach Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License. Proszę przypisać źródło, używać niekomercyjnie i utrzymać tę samą licencję."
+  cc_by_desc: "Ta praca jest licencjonowana na warunkach Creative Commons Attribution 4.0 International License. Proszę przypisać źródło."
+
+# Comments related
+comments:
+  title: "Komentarze"
+  not_configured: "System komentarzy nie skonfigurowany"
+  not_configured_desc: "Proszę włączyć system komentarzy w konfiguracji strony"
+  giscus_not_configured: "System komentarzy Giscus nie skonfigurowany"
+  disqus_not_configured: "System komentarzy Disqus nie skonfigurowany"
+  disqus_noscript: "Proszę włączyć JavaScript, aby zobaczyć komentarze."
+  utterances_not_configured: "System komentarzy Utterances nie skonfigurowany"
+  waline_not_configured: "System komentarzy Waline nie skonfigurowany"
+
+# Bottom Dock
+dock:
+  aria_label: "Pasek narzędzi szybkich akcji"
+  back: "Wstecz"
+  navigation: "Nawigacja"
+  toc: "Spis treści"
+  series: "Serie"
+  search: "Szukaj"
+  comments: "Komentarze"
+  back_to_top: "Powrót do góry"
+  top: "Góra"
+
+# Alert related
+alert:
+  note: "Uwaga"
+  tip: "Wskazówka"
+  important: "Ważne"
+  warning: "Ostrzeżenie"
+  caution: "Ostrożność"
+
+# Navigation related
+navigation:
+  title: "Nawigacja"
+  close: "Zamknij"
+
+# TOC related
+toc:
+  close: "Zamknij"
+  title: "Spis treści"
+  navigation: "Nawigacja spisu treści"
+  empty: "Brak nagłówków w tym artykule"
+  tip: "Kliknij, aby przejść do sekcji"
+
+# Series related
+series:
+  title: "Serie"
+  navigation: "Nawigacja serii"
+  empty: "Ten artykuł nie jest częścią żadnej serii"
+  current: "Aktualny artykuł"
+  progress: "Część {{ .current }} z {{ .total }}"
+  total: "{{ .count }} artykułów"
+  part: "Część {{ .current }}"
+  previous: "Poprzedni"
+  next: "Następny"
+  view_all: "Zobacz wszystkie"
+
+# Code block related
+code:
+  copy: "Kopiuj"
+  copied: "Skopiowano"
+  selected: "Wybrane"
+  collapse: "Zwiń"
+  expand: "Rozwiń"
+  clickToExpand: "Kliknij, aby rozwinąć i zobaczyć więcej"
+
+# Links related
+links: "Linki"
+
+# Projects related
+project:
+  featured_projects: "Wyróżnione projekty"
+  all_projects: "Wszystkie projekty"
+  view_all_projects: "Zobacz wszystkie projekty"
+  view_project: "Zobacz projekt"
+  demo: "Żywa demonstracja"
+  source: "Kod źródłowy"
+  github: "GitHub"
+  website: "Strona internetowa"
+  tech_stack: "Stos technologiczny"
+  status: "Status"
+  status_completed: "Ukończony"
+  status_in_progress: "W trakcie"
+  status_planning: "Planowanie"
+  no_projects: "Brak projektów"
+  no_projects_desc: "Żadne projekty nie zostały jeszcze opublikowane. Proszę sprawdzić później."
+  list_desc: "Oto wszystkie opublikowane projekty, prezentujące moją pracę i eksperymenty."
+  total_projects: "Projektów łącznie: {{ .count }}"
+  featured: "Wyróżniony"

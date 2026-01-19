@@ -1,0 +1,92 @@
+baseURL: https://notatnik.domowy.top/
+languageCode: pl-PL
+defaultContentLanguage: pl
+defaultContentLanguageInSubdir: false
+title: Notatnik
+
+hasCJKLanguage: false
+enableEmoji: true
+
+pagination:
+  pagerSize: 6
+  path: "page"
+
+taxonomies:
+  category: categories
+  tag: tags
+  series: series
+
+permalinks:
+  page:
+    posts: /posts/:year/:month/:slug
+    legacy: /legacy/:year/:month/:slug
+    projects: /projects/:slug/
+    pages: /:slug/
+  section:
+    posts: /posts/
+    legacy: /legacy/
+    projects: /projects/
+
+markup:
+  tableOfContents:
+    startLevel: 2
+    endLevel: 4
+    ordered: false
+  goldmark:
+    renderer:
+      unsafe: true
+    extensions:
+      extras:
+        delete:
+          enable: true
+        insert:
+          enable: true
+        mark:
+          enable: true
+        subscript:
+          enable: false
+        superscript:
+          enable: false
+      strikethrough: false
+  highlight:
+    codeFences: true
+    guessSyntax: false
+    lineNos: false
+    lineNumbersInTable: false # Set to false
+    noClasses: false
+    style: github # No need to change
+    tabWidth: 2
+
+outputs:
+  home: ["HTML", "RSS", "JSON", "WebAppManifest"]
+
+# Custom output
+outputFormats:
+  WebAppManifest:
+    mediaType: "application/manifest+json"
+    baseName: "site"
+    isPlainText: true
+
+module:
+  hugoVersion:
+    extended: true
+    min: 0.146.0
+  mounts:
+    - source: static/legacy-img
+      target: static/img
+      disableWatch: false
+    - source: static/images
+      target: static/images
+  imports:
+    # - disable: false
+    - path: github.com/tom2almighty/hugo-narrow
+
+languages:
+  pl:
+    languageCode: pl-PL
+    languageName: "Polski"
+    weight: 1
+  # en:
+  #   languageCode: en-US
+  #   languageName: "English"
+  #   weight: 2
