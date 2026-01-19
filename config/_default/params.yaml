@@ -19,6 +19,7 @@ home:
   # Available sections: author-section, recent-posts, featured-projects, page-content
   # You can add your custom content by creating files in `layouts/_partials/home/` folder, then add it to the list
   contentOrder:
+    - under-construction
     - author-section
     - page-content
     - recent-posts
@@ -27,8 +28,8 @@ home:
 # Author info
 author:
   name: "Mario"
-  title: "DevOps | Linux Admin (LFCS). 🐧 20+ years exp. ⚡ CI/CD, Hybrid-Cloud, IaC. 👨‍💻"
-  description: "Developer-turned-Admin bridging the gap."
+  title: "DevOps & Linux Admin. 🐧 20+ years in the terminal. 🛠️ DIY & 🌍 Travel."
+  description: "Developer-turned-Admin bridging the gap with CI/CD, Cloud, IaC."
   avatar: "/images/mario-1024.png"
   social:
     - name: "GitHub"
