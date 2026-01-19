@@ -28,17 +28,14 @@ home:
 author:
   name: "Mario"
   title: "DevOps | Linux Admin (LFCS). 🐧 20+ years exp. ⚡ CI/CD, Hybrid-Cloud, IaC. 👨‍💻"
-  description: "Focused on content and user experience."
+  description: "Developer-turned-Admin bridging the gap."
   avatar: "/images/mario-1024.png"
   social:
     - name: "GitHub"
-      url: "https://github.com/username"
+      url: "https://github.com/Fisiu"
       icon: "github"
-    - name: "Twitter"
-      url: "https://twitter.com/username"
-      icon: "twitter"
     - name: "Email"
-      url: "mailto:hello@example.com"
+      url: "mailto:fisiu82+notatnik@gmail.com"
       icon: "email"
 
 # Header configuration (modularized)
