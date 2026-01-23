@@ -36,9 +36,9 @@ theme:
 # Footer related
 footer:
   copyright: "Prawa autorskie"
-  all_rights_reserved: "Wszystkie prawa zastrzeżone"
-  about_us: "O nas"
-  contact_us: "Kontakt z nami"
+  all_rights_reserved: "O ile nie zaznaczono inaczej, treści objęte są licencją CC BY-NC-SA 4.0"
+  about_us: "O mnie"
+  contact_us: "Kontakt"
   privacy_policy: "Polityka prywatności"
   terms_of_service: "Regulamin"
   rss_feed: "Kanał RSS"
@@ -214,7 +214,7 @@ dock:
   search: "Szukaj"
   comments: "Komentarze"
   back_to_top: "Powrót do góry"
-  top: "Góra"
+  top: "Do góry"
 
 # Alert related
 alert:

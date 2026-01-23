@@ -26,13 +26,13 @@ main:
       icon: archive
 
 footer:
-  - name: About
+  - name: O mnie
     pageRef: /about
     weight: 10
     params:
       icon: about
-  - name: Contact
-    url: https://google.com
+  - name: Kontakt
+    url: mailto:fisiu82+notatnik@gmail.com
     weight: 20
     params:
       icon: contact

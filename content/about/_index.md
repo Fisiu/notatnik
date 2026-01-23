@@ -1,5 +1,5 @@
 ---
-title: "About"
+title: "O mnie"
 layout: "about"
 summary: "Learn about Hugo Narrow theme and its technology stack"
 date: 2024-01-01T00:00:00+08:00
