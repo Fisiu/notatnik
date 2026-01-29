@@ -1,9 +1,9 @@
 # Basic site info with SEO
 description: "A modern, clean, and minimal Hugo theme built with Tailwind CSS 4.0. Support custom themes, dark mode, and responsive design."
 keywords: ["Hugo", "Blog", "Theme", "Technology", "Programming"]
-defaultAuthor: "Hugo Narrow"
+defaultAuthor: "Mario"
 language: "pl-PL"
-shortName: "Hugo Narrow" # PWA
+shortName: "Notatnik w Internecie"
 images:
   - "/images/og-default.avif"
 
