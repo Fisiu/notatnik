@@ -1,33 +1,23 @@
 ---
 title: "O mnie"
 layout: "about"
-summary: "Learn about Hugo Narrow theme and its technology stack"
-date: 2024-01-01T00:00:00+08:00
+summary: "Software Developer, Linux Admin i pasjonat Open Source."
+date: 2026-01-01T00:00:00+08:00
 links:
-  - name: "Hugo Docs"
-    url: "https://gohugo.io"
-    icon: "https://gohugo.io/favicon.ico"
-    description: "The world's fastest static site generator"
-  - name: "Tailwindcss"
-    url: "https://tailwindcss.com"
-    description: "CSS framework"
   - name: "GitHub"
-    url: "https://github.com"
+    url: "https://github.com/Fisiu"
     icon: "https://github.com/fluidicon.png"
-    description: "The world's largest code hosting platform. "
+    description: "Moje projekty, automatyzacja i homelab."
+lightbox:
+  enabled: true
 ---
 
-## About
+Blog prowadzony po godzinach 😉
 
-Hugo Narrow is a modern, clean, and minimal Hugo theme built with Tailwind CSS 4.0. It's designed as a blog theme with extensive customization options including multiple color schemes, dark mode support, and responsive design.
+Nie nastawiam się na regularne publikacje. Raczej będą rzeczy, które w jakiś sposób były wyzwaniem lub które chcę zanotować. Wszak jest to notatnik 📝.
 
-## Technology Stack
+Po drodze, również mogą się pojawić projekty, niekoniecznie związane z IT. 
 
-- Hugo Extended
-- Tailwind CSS 4.0
-- @tailwindcss/typography
-- Glightbox
-- fjGallery
-- Macy.js
-- gumshoe
-- ...
+A w starociach zebrałem stare wpisy, które kiedyś popełniłem. 
+
+![Autor: Nano Banana 🍌](/desk.png "Biurko to nie tylko komputer" )

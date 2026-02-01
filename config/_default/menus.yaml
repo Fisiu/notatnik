@@ -32,7 +32,7 @@ footer:
     params:
       icon: about
   - name: Kontakt
-    url: mailto:fisiu82+notatnik@gmail.com
+    url: mailto:notatnik@domowy.top
     weight: 20
     params:
       icon: contact
@@ -59,7 +59,7 @@ social:
     params:
       icon: linkedin
   - name: Email
-    url: mailto:fisiu82+notatnik@gmail.com
+    url: mailto:notatnik@domowy.top
     weight: 40
     params:
       icon: email

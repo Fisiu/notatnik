@@ -28,15 +28,15 @@ home:
 # Author info
 author:
   name: "Mario"
-  title: "DevOps & Linux Admin. 🐧 20+ years in the terminal. 🛠️ DIY & 🌍 Travel."
-  description: "Developer-turned-Admin bridging the gap with CI/CD, Cloud, IaC."
+  title: "DevOps | Linux Admin  ·  🐧 20+ lat w konsoli  ·  🛠️ DIY  ·  🌍 Travel"
+  description: "Mniej dev, więcej admin. Majsterkowicz, ciekawy świata i kuchni."
   avatar: "/images/mario-1024.png"
   social:
     - name: "GitHub"
       url: "https://github.com/Fisiu"
       icon: "github"
     - name: "Email"
-      url: "mailto:fisiu82+notatnik@gmail.com"
+      url: "mailto:notatnik@domowy.top"
       icon: "email"
 
 # Header configuration (modularized)
