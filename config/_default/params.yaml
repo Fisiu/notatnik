@@ -88,14 +88,14 @@ post:
 
 # Comments
 comments:
-  enabled: false
+  enabled: true
   # giscus, disqus, utterances, waline, artalk, twikoo
   system: "giscus"
   giscus:
-    repo: ""
-    repoId: ""
-    category: "General"
-    categoryId: ""
+    repo: "Fisiu/notatnik"
+    repoId: "R_kgDOQpbu8Q"
+    category: "Announcements"
+    categoryId: "DIC_kwDOQpbu8c4C14_O"
     mapping: "pathname"
     strict: "0"
     reactionsEnabled: "1"
@@ -103,6 +103,7 @@ comments:
     inputPosition: "bottom"
     theme: "preferred_color_scheme"
     lang: "pl"
+    loading: "lazy"
 
 analytics:
   enabled: true
