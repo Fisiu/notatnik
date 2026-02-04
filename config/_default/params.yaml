@@ -105,12 +105,12 @@ comments:
     lang: "pl"
 
 analytics:
-  enabled: false
+  enabled: true
   umami:
-    enabled: false
-    id: "your-umami-website-id"
-    src: "https://umami.com/myscript.js"
-    domains: "example.domain.com"
+    enabled: true
+    id: "bb4b01aa-b40d-47f7-9726-1603d0a51a84"
+    src: "https://cloud.umami.is/script.js"
+    domains: "notatnik.domowy.top"
 
 # KaTeX
 katex:
