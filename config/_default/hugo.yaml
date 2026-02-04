@@ -2,7 +2,7 @@ baseURL: https://notatnik.domowy.top/
 languageCode: pl-PL
 defaultContentLanguage: pl
 defaultContentLanguageInSubdir: false
-title: Notatnik
+title: Notatnik Domowy
 
 hasCJKLanguage: false
 enableEmoji: true

@@ -1,11 +1,11 @@
 # Basic site info with SEO
-description: "A modern, clean, and minimal Hugo theme built with Tailwind CSS 4.0. Support custom themes, dark mode, and responsive design."
-keywords: ["Hugo", "Blog", "Theme", "Technology", "Programming"]
+description: "Notatnik Domowy - self-hosting, homelab, DevOps, Linux, Docker, Proxmox, druk 3D, open source, DIY. Wszystko pod kontrolą, własną."
+keywords: ["self-hosting", "homelab", "DevOps", "Linux", "Docker", "Proxmox", "druk 3D", "open source", "DIY"]
 defaultAuthor: "Mario"
 language: "pl-PL"
-shortName: "Notatnik w Internecie"
+shortName: "Notatnik Domowy"
 images:
-  - "/images/og-default.avif"
+  - "/images/default.png"
 
 # Favicon
 favicon:
