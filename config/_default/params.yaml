@@ -88,7 +88,7 @@ post:
 
 # Comments
 comments:
-  enabled: true
+  enabled: false # disable globally, enable per post in frontmatter
   # giscus, disqus, utterances, waline, artalk, twikoo
   system: "giscus"
   giscus:

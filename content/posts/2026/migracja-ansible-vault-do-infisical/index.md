@@ -10,6 +10,8 @@ categories:
   - devops
   - homelab
 cover: struktura.png
+comments:
+  enabled: true
 ---
 
 # 0.
