@@ -1,0 +1,348 @@
+---
+title: 'Migracja Ansible Vault do Infisical'
+date: 2026-02-04T21:52:20+01:00
+draft: false
+description: "Migracja sekretów z Ansible Vault do Infisical - nieporadnik"
+slug: migracja-ansible-vault-do-infisical
+summary:
+tags: ["ansible", "infisical", "vault"]
+categories:
+  - devops
+  - homelab
+cover: struktura.png
+---
+
+# 0.
+
+Mój homelab jest w wersji mini. Kiedyś w tym celu używałem terminala HP t620. Ale jakiś czasem temu zmieniłem sprzęt na minipc - taki na Intelu N100. I przy tej zmianie zacząłem używać [ansible](https://docs.ansible.com/) aby cały proces instalacji i aktualizacji (zarówno systemu jak i aplikacji) był łatwy i powtarzalny. I tak w początkowym etapie tworzenia playbooków, wszystkie dane wrażliwe trzymałem w sejfie [ansible vault](https://docs.ansible.com/ansible/latest/user_guide/vault.html). Z początku sejf był tylko na moim komputerze, do tego w `.gitignore`. Pomimo, że żadnych 'supertajnych' danym w nim nie ma, to wrodzona ostrożność nie pozwalała mi na wrzucenie go do repozytorium. Z czasem playbooków zaczęło przybywać. Wraz z nimi pojawiły się kolejne sejfy - bo grupowanie sekretów miało dla mnie sens. I taki układ mi pasował. Do czasu, aż któregoś dnia potrzebowałem zrobić zmianę konfiguracji traefik pracując na laptopie. Kod z repo pobrany, odpalam ansible-playbook i widzę, że nie można odczytać danych z sejfu. No tak, nie można, bo nie mam sejfu... żadnego.
+
+
+# 0.5
+
+Plików z sejfami nadal nie chciałem wrzucać do repozytorium. Ale chciałem mieć możliwość korzystania z ansible na wielu maszynach. Pomyślałem, że temat załatwi jakiś centralny self, do którego urządzenia będą miały dostęp. Systemów takich jest sporo, choć nie wszystkie są opensource i możliwe do zainstalowania na własnym sprzęcie. Mając takie wymagania trafiłem na [infisical](https://infisical.com/).
+
+> Infisical is the open-source platform for secrets, certificates, and privileged access management.
+
+Sam infisical składa się kilku modułów, jednak nie wszystkie są opensource i darmowe. Moduł do zarządzania hasłami akurat jest 😀
+
+# Infisical
+
+Nie zwlekając, odpaliłem kontener z infisical na Synology NAS. Pomocna okazała się [dokumentacja](https://infisical.com/docs/self-hosting/deployment-options/docker-compose).
+
+```yaml {filename="docker-compose.yml"}
+---
+services:
+  infisical:
+    image: infisical/infisical:v0.158.0
+    container_name: infisical
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    ports:
+      - 8080:8080
+    volumes:
+      - ./data:/appdata
+    environment:
+      TZ: Europe/Warsaw
+      NODE_ENV: production
+      TELEMETRY_ENABLED: false
+      
+      SITE_URL: ${SITE_URL}
+      AUTH_MECHANISM: ${AUTH_MECHANISM}
+      AUTH_SECRET: ${AUTH_SECRET}
+      ENCRYPTION_KEY: ${ENCRYPTION_KEY}
+
+      DB_CONNECTION_URI: ${DB_CONNECTION_URI}
+
+      REDIS_URL: ${REDIS_URL}
+
+      SMTP_HOST: ${SMTP_HOST}
+      SMTP_PORT: ${SMTP_PORT}
+      SMTP_FROM_ADDRESS: ${SMTP_FROM_ADDRESS}
+      SMTP_FROM_NAME: ${SMTP_FROM_NAME}
+      SMTP_USERNAME: ${SMTP_USERNAME}
+      SMTP_PASSWORD: ${SMTP_PASSWORD}
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8080/api/status || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+
+  redis:
+    image: redis:8.4.0
+    (...)
+
+  db:
+    image: postgres:14.20-alpine
+    (...)
+
+networks:
+  (...)
+```
+
+Po uruchomieniu aplikacji, mogłem zacząć konfigurację. Interfejs jest dość intuicyjny i dostępny przez przeglądarkę. Można też korzystać z CLI i REST API. Najpierw skonfigurowałem organizację i następnie utworzyłem projekt `ansible`. W końcu chciałem przenieść dane z "ansible vault".
+
+Domyślnie projekt miał skonfigurowane 3 środowiska: `development`, `staging` i `production`. Mnie interesował tylko `production` 😀
+Stworzyłem tyle katalogów ile miałem sejfów w ansible, tak aby odwzorować podział danych w infisical w taki sam sposób jak w ansible vault. Później pozostało mi przenieść dane z sejfu ansible do infisical. Dokumentacja infisical mówi, że można dane zaimportować ale moja wersji takiej opcji nie posiada. Albo nie umiem jej znaleźć. Więc przenoszę ręcznie. Odszyfrowuję dane z sejfu `ansible-vault decrypt` i wpisuję je do infisical. Proces trochę żmudny ale danych nie było aż tak dużo aby rozkminiać import przez API. Przy okazji usunąłem dane które już nie były używane w playbookach ansible.
+
+> [!TIP]
+> Wygląda na to, że można użyć `infisical secrets set --path="some_directory" --file="plik.env"` gdzie mamy dane w postaci `key=value`. Więcej w [dokumentacji](https://infisical.com/docs/cli/commands/secrets#infisical-secrets-set:path).
+
+Skoro infisical już działał, to dodałem jeszce małą zmianę w ansible - nowy `service/router` w ansible aby infisical był dostępny po domenie a nie IP:PORT.
+
+# Ansible
+
+Teraz już pozostało tylko spiąć ansible z infisical. We wszystkim pomogła jak zawsze [dokumentacja](https://infisical.com/docs/integrations/platforms/ansible). Zainstalowałem kolekcję `infisical.vault` oraz `infisicalsdk`:
+
+```shell
+ansible-galaxy collection install infisical.vault
+uv add infisicalsdk
+```
+
+Kolejno, koniecznie musiałem ogarnąć autoryzację. W infisical stworzyłem `Machine Identity` na poziomie organizacji i ustawiłem brak dostępu. Autoryzację skonfigurowałem jako `Universal Auth` i dodałem `Client Secret`. I dalej, już w projekcie dla ansible ustawiłem wcześniej stworzone 'Machine Identity' z rolą `Developer`. Po tym zabiegu stworzyłem plik `.env` dla `direnv`.
+
+Później już z górki, patrzę w dokumentacją `lookup plugin` i widzę:
+
+```shell
+read_all_secrets_within_scope: "{{ lookup('infisical.vault.read_secrets', universal_auth_client_id='<>', universal_auth_client_secret='<>', project_id='<>', path='/', env_slug='dev', url='https://app.infisical.com') }}"
+```
+
+Trochę słabo to wygląda, nie będę za każdym razem podawać danych logowani, projektu, ścieżki czy środowiska...
+Zwłaszcza, że potrzebuję te lookupy zrobić np. w `inventory` dla `group_vars` czy `hosts`.
+
+Więc potrzebowałem [własny](https://docs.ansible.com/projects/ansible/latest/dev_guide/developing_plugins.html#lookup-plugins) `lookup plugin`, który pobierze wszystkie potrzebne dane z `env vars` i wyciągnie to o co poproszę.
+
+Najpierw ustawiłem zmienne środowiskowe:
+
+```direnv {filename=".env"}
+export INFISICAL_URL=""
+export INFISICAL_CLIENT_ID=""
+export INFISICAL_CLIENT_SECRET=""
+export INFISICAL_PROJECT_ID="" # To można odczytać z URL będąc w widoku projektu
+```
+
+Potem prosty plugin:
+
+```python {filename="lookup_plugins/infisical.py"}
+from ansible.plugins.lookup import LookupBase
+from ansible.errors import AnsibleError
+import requests
+import os
+import time
+import threading
+import re
+
+class LookupModule(LookupBase):
+    # Class-level caching for shared state across instances
+    _token_cache = None
+    _token_expiry = None
+    _secrets_cache = {}
+    _session = None
+    _lock = threading.Lock()
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if LookupModule._session is None:
+            LookupModule._session = requests.Session()
+
+    def _get_token(self):
+        with LookupModule._lock:
+            # Check if token is cached and not expired
+            if LookupModule._token_cache and LookupModule._token_expiry and time.time() < LookupModule._token_expiry:
+                return LookupModule._token_cache
+                
+            infisical_url = os.getenv('INFISICAL_URL', 'https://app.infisical.com')
+            client_id = os.getenv('INFISICAL_CLIENT_ID')
+            client_secret = os.getenv('INFISICAL_CLIENT_SECRET')
+
+            if not all([client_id, client_secret]):
+                raise AnsibleError("Missing Infisical credentials: INFISICAL_CLIENT_ID and INFISICAL_CLIENT_SECRET must be set")
+
+            try:
+                response = LookupModule._session.post(
+                    f"{infisical_url}/api/v1/auth/universal-auth/login",
+                    json={"clientId": client_id, "clientSecret": client_secret},
+                    timeout=10
+                )
+                response.raise_for_status()
+                data = response.json()
+                LookupModule._token_cache = data['accessToken']
+                # Refresh 5 minutes before expiry for safety
+                expires_in = data.get('expiresIn', 3600)
+                LookupModule._token_expiry = time.time() + expires_in - 300
+                return LookupModule._token_cache
+            except requests.RequestException as e:
+                raise AnsibleError(f"Failed to authenticate with Infisical: {e}")
+            except KeyError:
+                raise AnsibleError("Invalid authentication response from Infisical")
+
+    def _expand_references(self, value, environment, secret_path, max_depth=5):
+        """Recursively expand ${env.path.secret} references in the value"""
+        if not isinstance(value, str) or max_depth <= 0:
+            return value
+        
+        def replace_ref(match):
+            ref = match.group(1)  # e.g., "prod.group.item"
+            parts = ref.split('.')
+            if len(parts) < 3:
+                return match.group(0)  # Invalid format, return unchanged
+            
+            ref_env = parts[0]
+            ref_path = '/' + '.'.join(parts[1:-1])  # e.g., "/all"
+            ref_secret = parts[-1]  # e.g., "item"
+            
+            # Fetch the referenced secret
+            try:
+                response = LookupModule._session.get(
+                    f"{os.getenv('INFISICAL_URL', 'https://app.infisical.com')}/api/v3/secrets/raw/{ref_secret}",
+                    headers={"Authorization": f"Bearer {self._get_token()}"},
+                    params={
+                        "workspaceId": os.getenv('INFISICAL_PROJECT_ID'),
+                        "environment": ref_env,
+                        "secretPath": ref_path
+                    },
+                    timeout=10
+                )
+                response.raise_for_status()
+                data = response.json()
+                secret_value = data.get('secret', {}).get('secretValue')
+                if secret_value is None:
+                    raise AnsibleError(f"Referenced secret '{ref}' not found")
+                return secret_value
+            except requests.RequestException as e:
+                raise AnsibleError(f"Failed to expand reference '{ref}': {e}")
+        
+        # Expand references recursively
+        expanded = re.sub(r'\$\{([^}]+)\}', replace_ref, value)
+        if expanded != value and max_depth > 1:
+            return self._expand_references(expanded, environment, secret_path, max_depth - 1)
+        return expanded
+
+    def run(self, terms, variables=None, **kwargs):
+        """
+        Lookup secrets from Infisical.
+        
+        :param terms: List of secret names to retrieve.
+        :param kwargs: Additional options, e.g., environment, path.
+        :return: List of secret values.
+        """
+        infisical_url = os.getenv('INFISICAL_URL', 'https://app.infisical.com')
+        workspace_id = os.getenv('INFISICAL_PROJECT_ID')
+        environment = kwargs.get('environment', 'prod')
+        secret_path = kwargs.get('path', '/')
+
+        if not workspace_id:
+            raise AnsibleError("INFISICAL_PROJECT_ID environment variable must be set")
+
+        if not terms:
+            return []
+
+        token = self._get_token()
+        results = []
+
+        for secret_name in terms:
+            if not isinstance(secret_name, str) or not secret_name.strip():
+                self._display.warning(f"Skipping invalid secret name: {secret_name}")
+                continue
+
+            cache_key = f"{workspace_id}:{environment}:{secret_path}:{secret_name}"
+
+            # Check cache
+            if cache_key in LookupModule._secrets_cache:
+                results.append(LookupModule._secrets_cache[cache_key])
+                continue
+
+            # Fetch from API
+            try:
+                response = LookupModule._session.get(
+                    f"{infisical_url}/api/v3/secrets/raw/{secret_name}",
+                    headers={"Authorization": f"Bearer {token}"},
+                    params={
+                        "workspaceId": workspace_id,
+                        "environment": environment,
+                        "secretPath": secret_path
+                    },
+                    timeout=10
+                )
+                response.raise_for_status()
+                secret_data = response.json()
+                secret_value = secret_data.get('secret', {}).get('secretValue')
+                if secret_value is None:
+                    raise AnsibleError(
+                        f"Secret '{secret_name}' not found in environment '{environment}' "
+                        f"at path '{secret_path}'"
+                    )
+                
+                # Expand any ${} references
+                secret_value = self._expand_references(secret_value, environment, secret_path)
+                
+                LookupModule._secrets_cache[cache_key] = secret_value
+                results.append(secret_value)
+            except requests.RequestException as e:
+                status = getattr(e.response, 'status_code', 'N/A') if hasattr(e, 'response') else 'N/A'
+                raise AnsibleError(
+                    f"Failed to retrieve secret '{secret_name}' from '{environment}': "
+                    f"HTTP {status} - {e}"
+                )
+            except (KeyError, ValueError) as e:
+                raise AnsibleError(f"Invalid response format for secret '{secret_name}': {e}")
+        
+        return results
+
+    @classmethod
+    def clear_cache(cls):
+        """Clear all caches (useful for testing or manual refresh)."""
+        with cls._lock:
+            cls._token_cache = None
+            cls._token_expiry = None
+            cls._secrets_cache.clear()
+```
+
+No i jeszcze mały update w ansible.cfg:
+
+```diff {filename="ansible.cfg"}
+[defaults]
+inventory = inventory/hosts.yml
+roles_path = roles
+host_key_checking = False
+retry_files_enabled = False
+callback_result_format=yaml
+-vault_password_file = .vault_pass
+interpreter_python = auto_silent
++lookup_plugins = lookup_plugins
+
+[privilege_escalation]
+become = True
+become_method = sudo
+become_user = root
+become_ask_pass = False
+
+```
+
+
+I od teraz mogę używać tego pluginu zarówno w playbookach jak i w inventory, np:
+
+```yaml {filename="inventory/hosts.yml"}
+linux:
+  (...)
+  children:
+    monitoring:
+      hosts:
+        prometheus:
+          ansible_host: "{{ lookup('infisical', 'vault_prometheus_host', path='/monitoring') }}"
+          ansible_user: "{{ lookup('infisical', 'vault_ansible_user', path='/all') }}"
+        grafana:
+          ansible_host: "{{ lookup('infisical', 'vault_grafana_host', path='/monitoring') }}"
+          ansible_user: "{{ lookup('infisical', 'vault_ansible_user', path='/all') }}"
+        prometheus-pve-exporter:
+          ansible_host: "{{ lookup('infisical', 'vault_prometheus_pve_exporter_host', path='/monitoring') }}"
+          ansible_user: "{{ lookup('infisical', 'vault_ansible_user', path='/all') }}"
+```
+
+Jak widać, wystarczy podać teraz co i skąd potrzebujemy, bez całej listy innych parametrów, które `lookup_plugin` sobie sam wyciąga ze zmiennych środowiskowych.
+
+Od teraz mogę już uruchomić playbook na innej maszynie, jedyne wymaganie to ustawienie 4 zmiennych środowiskowych, bo wszystkie inne dane są już w Infisical 🙂
