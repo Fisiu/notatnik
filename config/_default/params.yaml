@@ -1,6 +1,17 @@
 # Basic site info with SEO
 description: "Notatnik Domowy - self-hosting, homelab, DevOps, Linux, Docker, Proxmox, druk 3D, open source, DIY. Wszystko pod kontrolą, własną."
-keywords: ["self-hosting", "homelab", "DevOps", "Linux", "Docker", "Proxmox", "druk 3D", "open source", "DIY"]
+keywords:
+  [
+    "self-hosting",
+    "homelab",
+    "DevOps",
+    "Linux",
+    "Docker",
+    "Proxmox",
+    "druk 3D",
+    "open source",
+    "DIY",
+  ]
 defaultAuthor: "Mario"
 language: "pl-PL"
 shortName: "Notatnik Domowy"
@@ -89,9 +100,9 @@ comments:
   system: "giscus"
   giscus:
     repo: "Fisiu/notatnik"
-    repoId: "R_kgDOQpbu8Q"
+    repoId: "R_kgDORJokng"
     category: "Announcements"
-    categoryId: "DIC_kwDOQpbu8c4C14_O"
+    categoryId: "DIC_kwDORJokns4C18FZ"
     mapping: "pathname"
     strict: "0"
     reactionsEnabled: "1"
