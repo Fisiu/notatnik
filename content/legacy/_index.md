@@ -7,3 +7,4 @@ cascade:
     render: always        # Ensures the individual pages still exist
     section: legacy
 ---
+Oto wszystkie opublikowane starocie, posortowane według daty w porządku malejącym.

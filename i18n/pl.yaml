@@ -7,7 +7,6 @@ nav:
   projects: "Projekty"
   tags: "Tagi"
   categories: "Kategorie"
-  series: "Serie"
   about: "O mnie"
   contact: "Kontakt"
   archive: "Archiwum"
@@ -24,6 +23,7 @@ nav:
   total_pages: "Stron łącznie: {{ .count }}"
   back_home: "Powrót do strony głównej"
   post_navigation: "Nawigacja wpisów"
+  rss: "RSS Feed"
 
 # Theme related
 theme:
@@ -57,7 +57,6 @@ post:
   updated_on: "Zaktualizowano"
   tags: "Tagi"
   categories: "Kategorie"
-  series: "Serie"
   share: "Udostępnij"
   previous: "Poprzedni"
   next: "Następny"
@@ -126,9 +125,9 @@ time:
   year: "rok"
   years: "lata"
   ago: "temu"
-  date_format: "02 stycznia 2006"
-  date_format_short: "02 sty"
-  month_format: "Styczeń 2006"
+  date_format: "02 January 2006"
+  date_format_short: "02 Jan"
+  month_format: "January 2006"
 
 # Archives related
 archives:
@@ -208,9 +207,7 @@ comments:
 dock:
   aria_label: "Pasek narzędzi szybkich akcji"
   back: "Wstecz"
-  navigation: "Nawigacja"
   toc: "Spis treści"
-  series: "Serie"
   search: "Szukaj"
   comments: "Komentarze"
   back_to_top: "Powrót do góry"
@@ -224,11 +221,6 @@ alert:
   warning: "Ostrzeżenie"
   caution: "Ostrożność"
 
-# Navigation related
-navigation:
-  title: "Nawigacja"
-  close: "Zamknij"
-
 # TOC related
 toc:
   close: "Zamknij"
@@ -236,19 +228,6 @@ toc:
   navigation: "Nawigacja spisu treści"
   empty: "Brak nagłówków w tym artykule"
   tip: "Kliknij, aby przejść do sekcji"
-
-# Series related
-series:
-  title: "Serie"
-  navigation: "Nawigacja serii"
-  empty: "Ten artykuł nie jest częścią żadnej serii"
-  current: "Aktualny artykuł"
-  progress: "Część {{ .current }} z {{ .total }}"
-  total: "{{ .count }} artykułów"
-  part: "Część {{ .current }}"
-  previous: "Poprzedni"
-  next: "Następny"
-  view_all: "Zobacz wszystkie"
 
 # Code block related
 code:

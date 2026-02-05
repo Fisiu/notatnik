@@ -7,6 +7,12 @@ title: Notatnik Domowy
 hasCJKLanguage: false
 enableEmoji: true
 
+
+# Main Section Configuration (Optional)
+# If not configured, Hugo will automatically select the section with the most pages
+# This configuration affects functions such as recent articles on the homepage, search index, and archive pages
+mainSections: ["posts"]  # Multiple values can be configured, e.g. ["posts", "blog", "articles"]
+
 pagination:
   pagerSize: 6
   path: "page"
@@ -44,10 +50,10 @@ markup:
         mark:
           enable: true
         subscript:
-          enable: false
+          enable: true
         superscript:
-          enable: false
-      strikethrough: false
+          enable: true
+      strikethrough: true
   highlight:
     codeFences: true
     guessSyntax: false
